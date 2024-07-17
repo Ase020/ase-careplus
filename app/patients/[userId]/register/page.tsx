@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 import RegisterForm from "@/components/forms/RegisterForm";
@@ -10,8 +9,8 @@ async function Register({ params: { userId } }: SearchParamProps) {
 
   return (
     <main className="flex h-screen max-h-screen">
-      <section className="remove-scrollbar container my-auto">
-        <div className="sub-container max-w-[496px]">
+      <section className="remove-scrollbar container">
+        <div className="sub-container flex-1 flex-col py-10 max-w-[860px]">
           <Image
             src="/assets/icons/logo-full.svg"
             alt="logo"
@@ -23,15 +22,7 @@ async function Register({ params: { userId } }: SearchParamProps) {
 
           <RegisterForm user={user} />
 
-          <div className="text-14-regular mt-20 flex justify-between">
-            <p className="justify-items-end text-dark-600 xl:text-left">
-              © {new Date().getFullYear()}
-            </p>
-
-            <Link href="/?admin=true" className="text-green-500">
-              Admin
-            </Link>
-          </div>
+          <p className="copyright py-12">© {new Date().getFullYear()}</p>
         </div>
       </section>
 

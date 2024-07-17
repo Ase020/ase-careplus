@@ -102,6 +102,7 @@ export default function RegisterForm({ user }: { user: User }) {
             placeholder="ex: 254 712345678"
           />
         </div>
+
         <div className="flex flex-col xl:flex-row gap-6">
           <CustomFormField
             control={form.control}
