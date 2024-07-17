@@ -10,7 +10,7 @@ import SubmitButton from "../SubmitButton";
 import { useState } from "react";
 import { UserFormValidation } from "@/lib/validation";
 import { useRouter } from "next/navigation";
-import { createUser } from "@/lib/actions/patients.actions";
+import { createUser } from "@/lib/actions/patient.actions";
 
 export default function PatientForm() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -25,27 +25,30 @@ export default function PatientForm() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof UserFormValidation>) {
+  const onSubmit = async ({
+    name,
+    email,
+    phone,
+  }: z.infer<typeof UserFormValidation>) => {
     setIsLoading(true);
 
     try {
       const userData = {
-        name: values.name,
-        email: values.email,
-        phone: values.phone,
+        name,
+        email,
+        phone,
       };
 
-      const user = await createUser(userData);
+      const newUser = await createUser(userData);
 
-      if (user) {
-        router.push(`/patients/${user.$id}/register`);
+      if (newUser) {
+        router.push(`/patients/${newUser.$id}/register`);
       }
-
       setIsLoading(false);
     } catch (error) {
       console.error("Error: ", error);
     }
-  }
+  };
 
   return (
     <Form {...form}>
