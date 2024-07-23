@@ -82,7 +82,7 @@ async function AppointmentSuccess({
           </Link>
         </Button>
 
-        <p className="copyright">© {new Date().getFullYear()}</p>
+        <p className="copyright">© {new Date().getFullYear()} CarePlus</p>
       </div>
     </div>
   );
