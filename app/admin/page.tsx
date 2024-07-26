@@ -1,9 +1,15 @@
 import AdminStatCard from "@/components/AdminStatCard";
+import { columns } from "@/components/table/columns";
+import DataTable from "@/components/table/DataTable";
+import { getRecentAppointmentList } from "@/lib/actions/appointment.actions";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-function AdminPage() {
+async function AdminPage() {
+  const appointments = await getRecentAppointmentList();
+
+  console.log(appointments);
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
       <header className="admin-header">
@@ -31,23 +37,25 @@ function AdminPage() {
         <section className="admin-stat">
           <AdminStatCard
             type="appointments"
-            count={5}
+            count={appointments.scheduledCount}
             label="Scheduled appointments"
             icon="/assets/icons/appointments.svg"
           />
           <AdminStatCard
             type="pending"
-            count={3}
+            count={appointments.pendingCount}
             label="Pending appointments"
             icon="/assets/icons/pending.svg"
           />
           <AdminStatCard
             type="cancelled"
-            count={2}
+            count={appointments.cancelledCount}
             label="Cancelled appointments"
             icon="/assets/icons/cancelled.svg"
           />
         </section>
+
+        <DataTable columns={columns} data={appointments.documents} />
       </main>
     </div>
   );
