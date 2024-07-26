@@ -8,15 +8,9 @@ import StatusBadge from "../StatusBadge";
 import { formatDateTime } from "@/lib/utils";
 import { Doctors } from "@/constants";
 import AppointmentModal from "../AppointmentModal";
+import { Appointment } from "@/types/appwrite.types";
 
-export type Payment = {
-  id: string;
-  amount: number;
-  status: "pending" | "scheduled" | "cancelled";
-  email: string;
-};
-
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Appointment>[] = [
   {
     header: "ID",
     cell: ({ row }) => <p className="text-14-medium">{row.index + 1}</p>,
@@ -75,7 +69,22 @@ export const columns: ColumnDef<Payment>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex gap-1">
-          <AppointmentModal />
+          <AppointmentModal
+            type="schedule"
+            patientId={row.original.patient.$id}
+            userId={row.original.patient.userId}
+            appointment={row.original}
+            // title="Schedule Appointment"
+            // description="Please confirm the following details to schedule"
+          />
+          <AppointmentModal
+            type="cancel"
+            patientId={row.original.patient.$id}
+            userId={row.original.patient.userId}
+            appointment={row.original}
+            // title="Cancel Appointment"
+            // description="Are you sure you want to cancel this appointment?"
+          />
         </div>
       );
     },
