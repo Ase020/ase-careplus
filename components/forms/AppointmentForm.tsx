@@ -42,11 +42,15 @@ export default function AppointmentForm({
   const form = useForm<z.infer<typeof AppointmentFormValidation>>({
     resolver: zodResolver(AppointmentFormValidation),
     defaultValues: {
-      cancellationReason: appointment.cancellationReason || "",
+      cancellationReason: appointment
+        ? (appointment?.cancellationReason as string)
+        : "",
       note: appointment ? appointment.note : "",
       primaryPhysician: appointment ? appointment.primaryPhysician : "",
       reason: appointment ? appointment.reason : "",
-      schedule: appointment ? new Date(appointment.schedule) : new Date(),
+      schedule: appointment
+        ? new Date(appointment.schedule)
+        : new Date(Date.now()),
     },
   });
 
