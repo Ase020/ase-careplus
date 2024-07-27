@@ -20,7 +20,7 @@ import {
 import { Appointment } from "@/types/appwrite.types";
 
 interface AppointmentProps {
-  appointment: Appointment;
+  appointment?: Appointment;
   patientId: string;
   setOpen?: Dispatch<SetStateAction<boolean>>;
   type: "create" | "cancel" | "schedule";
@@ -106,7 +106,7 @@ export default function AppointmentForm({
             schedule: new Date(schedule),
             status: status as Status,
           },
-          appointmentId: appointment?.$id,
+          appointmentId: appointment?.$id as string,
           type,
           userId,
         };
